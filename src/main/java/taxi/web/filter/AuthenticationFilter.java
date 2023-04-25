@@ -30,19 +30,11 @@ public class AuthenticationFilter implements Filter {
                          FilterChain filterChain) throws IOException, ServletException {
         final HttpServletRequest request = (HttpServletRequest) servletRequest;
         final HttpServletResponse response = (HttpServletResponse) servletResponse;
-        final Long userId = (Long) request.getSession().getAttribute("driverId");
-        if (userId == null && allowedUrls.contains(request.getRequestURI())) {
+        final Long driverId = (Long) request.getSession().getAttribute("driverId");
+        if (driverId != null || allowedUrls.contains(request.getServletPath())) {
             filterChain.doFilter(request, response);
             return;
         }
-        if (userId == null) {
-            response.sendRedirect("/login");
-            return;
-        }
-        if (request.getServletPath().equals("/login")) {
-            response.sendRedirect("/");
-            return;
-        }
-        filterChain.doFilter(request, response);
+        response.sendRedirect(request.getContextPath() + "/login");
     }
 }
