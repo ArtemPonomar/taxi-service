@@ -1,6 +1,6 @@
 # Taxi Service 🚕
 
-This is a web application for interacting with a database for demonstrative purposes.
+This is a Taxi service, which can be used to find drivers and their cars.
 
 ## Technologies Used
 
@@ -18,7 +18,7 @@ This is a web application for interacting with a database for demonstrative purp
 - 🌐 HttpServlet and JSP for Web Technology
 - 🚦 Filters to block unauthorized access
 
-## Deployment Guide
+## How to Run
 
 1. Install the required software (listed above).
 2. Set up the database by creating the table structure using the file `resources/init_db.sql`. Update credentials for connection to the database in class `java/taxi/util/ConnectionUtil.java`.
@@ -29,7 +29,7 @@ This is a web application for interacting with a database for demonstrative purp
    4. Add "build artifacts" after build and select "war".
    5. In the "Deployment" tab, select deployment of service:war and set application context as `'/'`.
    6. Apply changes.
-4. Select Java version 11+ in `File -> Project -> SDK`.
+4. Select Java version 17 in `File -> Project -> SDK`.
 5. Run your project in SDK and send URL queries in your preferred web browser (e.g., `localhost:8080/login`).
 
 ## Usage Instructions
@@ -38,3 +38,22 @@ After deploying the project and accessing localhost:8080/login, you will have ac
 To add a new driver, go to the "Drivers -> Add Driver" menu option.
 
 Log in using the credentials from the driver you just created to unlock the ability to interact with other menu options.
+## Endpoints
+
+GET /drivers - Retrieves a list of all the registered drivers.
+GET /drivers/add - Displays a form to add a new driver.
+POST /drivers/add - Adds a new driver to the system.
+POST /cars/drivers/add - Associates a driver with a car in the system.
+GET /cars/add - Displays a form to add a new car to the system.
+POST /cars/add - Adds a new car to the system.
+GET /cars - Retrieves a list of all the registered cars in the system.
+GET /cars/mine - Retrieves a list of cars associated with the currently logged-in driver.
+GET /manufacturers/add - Displays a form to add a new manufacturer.
+POST /manufacturers/add - Adds a new manufacturer to the system.
+GET /login - Displays a login form.
+POST /login - Authenticates a user and logs them in.
+GET /logout - Logs out the currently logged-in user.
+
+## Security
+
+Application uses Filters to deny acces for non-authorised users to all endpoints except /login and /drivers/add.
