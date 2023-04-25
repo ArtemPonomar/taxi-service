@@ -40,19 +40,19 @@ To add a new driver, go to the "Drivers -> Add Driver" menu option.
 Log in using the credentials from the driver you just created to unlock the ability to interact with other menu options.
 ## Endpoints
 
-GET /drivers - Retrieves a list of all the registered drivers.
-GET /drivers/add - Displays a form to add a new driver.
-POST /drivers/add - Adds a new driver to the system.
-POST /cars/drivers/add - Associates a driver with a car in the system.
-GET /cars/add - Displays a form to add a new car to the system.
-POST /cars/add - Adds a new car to the system.
-GET /cars - Retrieves a list of all the registered cars in the system.
-GET /cars/mine - Retrieves a list of cars associated with the currently logged-in driver.
-GET /manufacturers/add - Displays a form to add a new manufacturer.
-POST /manufacturers/add - Adds a new manufacturer to the system.
-GET /login - Displays a login form.
-POST /login - Authenticates a user and logs them in.
-GET /logout - Logs out the currently logged-in user.
+- GET /drivers - Retrieves a list of all the registered drivers.
+- GET /drivers/add - Displays a form to add a new driver.
+- POST /drivers/add - Adds a new driver to the system.
+- POST /cars/drivers/add - Associates a driver with a car in the system.
+- GET /cars/add - Displays a form to add a new car to the system.
+- POST /cars/add - Adds a new car to the system.
+- GET /cars - Retrieves a list of all the registered cars in the system.
+- GET /cars/mine - Retrieves a list of cars associated with the currently logged-in driver.
+- GET /manufacturers/add - Displays a form to add a new manufacturer.
+- POST /manufacturers/add - Adds a new manufacturer to the system.
+- GET /login - Displays a login form.
+- POST /login - Authenticates a user and logs them in.
+- GET /logout - Logs out the currently logged-in user.
 
 ## Security
 
