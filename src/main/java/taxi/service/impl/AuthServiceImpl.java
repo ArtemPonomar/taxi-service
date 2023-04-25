@@ -1,4 +1,4 @@
-package taxi.service;
+package taxi.service.impl;
 
 import java.util.Objects;
 import taxi.dao.DriverDao;
@@ -6,6 +6,7 @@ import taxi.exception.AuthenticationException;
 import taxi.lib.Inject;
 import taxi.lib.Service;
 import taxi.model.Driver;
+import taxi.service.AuthService;
 
 @Service
 public class AuthServiceImpl implements AuthService {

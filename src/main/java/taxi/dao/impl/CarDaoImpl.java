@@ -1,4 +1,4 @@
-package taxi.dao;
+package taxi.dao.impl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import taxi.dao.CarDao;
 import taxi.exception.DataProcessingException;
 import taxi.lib.Dao;
 import taxi.model.Car;
@@ -155,7 +156,6 @@ public class CarDaoImpl implements CarDao {
     }
 
     private void insertAllDrivers(Car car) {
-        Long carId = car.getId();
         List<Driver> drivers = car.getDrivers();
         if (drivers.size() == 0) {
             return;
@@ -164,7 +164,7 @@ public class CarDaoImpl implements CarDao {
         try (Connection connection = ConnectionUtil.getConnection();
                 PreparedStatement statement =
                         connection.prepareStatement(query)) {
-            statement.setLong(1, carId);
+            statement.setLong(1, car.getId());
             for (Driver driver : drivers) {
                 statement.setLong(2, driver.getId());
                 statement.executeUpdate();
@@ -175,12 +175,11 @@ public class CarDaoImpl implements CarDao {
     }
 
     private void deleteAllDriversExceptList(Car car) {
-        Long carId = car.getId();
         String query = "DELETE FROM cars_drivers WHERE car_id = ?";
         try (Connection connection = ConnectionUtil.getConnection();
                 PreparedStatement statement =
                         connection.prepareStatement(query)) {
-            statement.setLong(1, carId);
+            statement.setLong(1, car.getId());
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new DataProcessingException("Can't delete drivers " + car.getDrivers(), e);
@@ -207,12 +206,10 @@ public class CarDaoImpl implements CarDao {
     }
 
     private Driver parseDriverFromResultSet(ResultSet resultSet) throws SQLException {
-        long driverId = resultSet.getLong("id");
-        String name = resultSet.getNString("name");
         String licenseNumber = resultSet.getNString("license_number");
         Driver driver = new Driver();
-        driver.setId(driverId);
-        driver.setName(name);
+        driver.setId(resultSet.getObject("id", Long.class));
+        driver.setName(resultSet.getObject("name", String.class));
         driver.setLicenseNumber(licenseNumber);
         return driver;
     }
@@ -225,8 +222,8 @@ public class CarDaoImpl implements CarDao {
         manufacturer.setId(manufacturerId);
         manufacturer.setName(manufacturerName);
         manufacturer.setCountry(manufacturerCountry);
-        long carId = resultSet.getLong("id");
-        String model = resultSet.getNString("model");
+        long carId = resultSet.getObject("id", Long.class);
+        String model = resultSet.getObject("model", String.class);
         Car car = new Car();
         car.setId(carId);
         car.setModel(model);
